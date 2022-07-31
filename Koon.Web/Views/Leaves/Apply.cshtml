@@ -1,0 +1,143 @@
+﻿@model Koon.Models.Leave.ApplyLeave
+
+
+@{
+    ViewData["Title"] = "Apply Leave";
+}
+
+<link rel="stylesheet" href="~/css/Create.css" />
+
+<h3 class="text-center" style="color:#3684a8;">
+    Apply Your Leave
+</h3>
+
+<style>
+    body{
+        background-color: white;
+    }
+</style>
+
+<body>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Apply" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="EmployeeId" class="control-label required"></label>
+                    <input asp-for="EmployeeId" class="form-control" value="@Model.EmployeeId" readonly  />
+                    <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label required"></label>
+                    <input asp-for="Name" class="form-control" value="@Model.Name" readonly />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label required"></label>
+                    <input asp-for="Email" class="form-control" value="@Model.Email" readonly />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FromDate" class="control-label required"></label>
+                    <input asp-for="FromDate" class="form-control" />
+                    <span asp-validation-for="FromDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ToDate" class="control-label required"></label>
+                    <input asp-for="ToDate" class="form-control" />
+                    <span asp-validation-for="ToDate" class="text-danger"></span>
+                </div>
+                @*<div class="form-group">
+                    <label asp-for="LeaveType" class="control-label required"></label>
+                    <select asp-for="LeaveType" class="form-control">
+                    @foreach (var leaveType in Enum.GetValues(typeof(Koon.Models.Leave.LeaveType)))
+                    {
+                        <option value="@leaveType">@leaveType</option>
+                    }
+                    </select>
+                    <span asp-validation-for="LeaveType" class="text-danger"></span>
+                </div>*@
+                <div class="form-group">
+                    <label asp-for="LeaveType" class="control-label required color">Leave Category</label>
+                    <select asp-for="LeaveType" class="form-control" asp-items="Html.GetEnumSelectList<Koon.Models.Leave.LeaveType>()">
+                        <option selected="selected" value="">----Please Select Leave Type----</option>
+                    </select>
+                    <span asp-validation-for="LeaveCategory" class="text-danger"></span>
+                </div>
+                @*<div class="form-group">
+                    <label asp-for="LeaveCategory" class="control-label required"></label>
+                    <select asp-for="LeaveCategory" class="form-control">
+                        @foreach (var leaveCategory in Enum.GetValues(typeof(Koon.Models.Leave.LeaveCategory)))
+                        {
+                            <option value="@leaveCategory">@leaveCategory</option>
+                        }
+                    </select>
+                    <span asp-validation-for="LeaveCategory" class="text-danger"></span>
+                </div>*@
+                <div class="form-group">
+                    <label asp-for="LeaveCategory" class="control-label required color">Leave Category</label>
+                    <select asp-for="LeaveCategory" class="form-control" asp-items="Html.GetEnumSelectList<Koon.Models.Leave.LeaveCategory>()">
+                        <option selected="selected" value="">----Please Select Leave Type----</option>
+                    </select>
+                    <span asp-validation-for="LeaveCategory" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReasonForLeave" class="control-label required"></label>
+                    <input asp-for="ReasonForLeave" class="form-control" />
+                    <span asp-validation-for="ReasonForLeave" class="text-danger"></span>
+                </div>
+                @*<div class="form-group">
+            <input type="submit" value="Apply" class="btn btn-default" />
+        </div>*@
+                <div class="form-group" align="left">
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" asp-action="Apply" id="btnSubmit">
+                        Apply Leave
+                    </button>
+                    <button class="btn btn-primary" asp-controller="Employee" asp-action="Details" asp-route-id="@ViewBag.EmpId">Back to Details</button>
+                </div>
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Success</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div align="center">
+                                <img src="https://www.cntraveller.in/wp-content/themes/cntraveller/images/check-circle.gif" jsaction="load:XAeZkd;" jsname="HiaYvf" class="n3VNCb KAlRDb" alt="Transaction Success | Condé Nast Traveller India" data-noaft="1" style="width: 100px; height: 100px; margin: 0px;">
+                            </div>
+                            <div class="modal-body" align="center">
+                                Leave Applied Successfully
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+
+
+
+@*Scripts{
+        <script type="text/javascript">
+            function openSuccessModal(strMessage) {
+                var myDiv = document.getElementById("MyModalSuccessAlertBody");
+                myDiv.innerHTML = strMessage;
+                $('myModalSuccess').modal('show');
+            }
+
+            $(document).ready(function () {
+                var msg = "@TempData["SuccessMessage"]";
+                if (msg)
+                    openSuccessModal(msg);
+            })
+
+        </script>
+    }*@

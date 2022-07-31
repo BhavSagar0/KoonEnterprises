@@ -1,0 +1,133 @@
+﻿@model List<Koon.Models.Employees.EmployeeDetails>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
+<style>
+
+    body {
+        margin-top: 20px;
+        background-color: whitesmoke;
+    }
+
+    .glyphicon-trash {
+        color: red;
+        padding: 2px;
+        margin-left: 3px;
+        font-size: 15px;
+    }
+
+    .glyphicon-pencil {
+        color: black;
+        padding: 2px;
+        font-size: 15px;
+    }
+</style>
+
+
+
+<h1 class="text-center" style="color:#3684a8">
+    Employee Portal
+</h1>
+
+<div class="col-md-12 text-right">
+    <a class="btn btn-primary" style="background-color:#3684a8" asp-controller="Employee" asp-action="Create">Add Employee  <i class="fa fa-user"></i> </a>
+</div>
+
+
+<form method="get" asp-action="Index" class="input-group mb-3" style="align-content:space-around; width:auto">
+    <input type="search" placeholder="Enter Employee's Name" class="form-control" style="width:auto" name="searchString" />
+    <button type="submit" class="btn btn-primary" style="background-color:#3684a8;color:white;"><i class="fa fa-search"></i> Search</button>
+   
+</form>
+<br />
+
+
+<div>
+    <table class="table table-responsive table-bordered" style="background-color:white;">
+        <thead style="color:#3684a8; background-color:white;">
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Phone
+                </th>
+                <th>
+                    Marital Status
+                </th>
+                <th>
+                    Actions
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Emp in Model)
+            {
+                <tr>
+                    <td>
+                        @Emp.EmployeeId
+                    </td>
+                    <td>
+
+                        <a asp-action="Details" style="font-weight:bold;color:black" asp-route-id="@Emp.EmployeeId">@Emp.FirstName @Emp.LastName</a>
+                    </td>
+                    <td>
+                        @Emp.Email
+                    </td>
+                    <td>
+                        @Emp.Phone
+                    </td>
+                    <td>
+                        @Emp.MaritalStatus
+                    </td>
+                    <td>
+                        <a asp-action="Update" asp-route-id="@Emp.EmployeeId" class="glyphicon glyphicon-pencil"></a>
+                        <a asp-action="Delete" asp-route-id="@Emp.EmployeeId" class="glyphicon glyphicon-trash"></a>
+                        @*@Html.ActionLink("", "Edit", new { id = Emp.EmployeeId }, new { @class = "glyphicon glyphicon-pencil" })
+                        @Html.ActionLink("", "Delete", new { id = Emp.EmployeeId }, new { @class = "glyphicon glyphicon-trash" })*@
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    @if (Model.Count() == 0)
+    {
+        <h3 style="color:#3684a8; text-align:center; font-weight:bold;">Searched Data doesn't exist...</h3>
+        <img src="https://notatag-public.s3.ap-southeast-1.amazonaws.com/frontend/asset_web/img/no-data.gif" style="height:50%; width:200px; justify-content:center;display: block; margin-left: auto; margin-right: auto;" />
+        <div style="float:right">
+            <a asp-action="Index" class="btn btn-primary">Back to the List</a>
+
+        </div>
+
+    }
+</div>
+
+<ul class="pagination" justify-content-end>
+    @for (var pge = ViewBag.Pager.StartPage; pge <= ViewBag.Pager.EndPage; pge++)
+    {
+        <li class="page-item @(pge == ViewBag.Pager.CurrentPage ? "active" : "")">
+            <a class="page-link" asp-action="Index" asp-route-pg="@pge">@pge</a>
+        </li>
+    }
+
+
+
+
+</ul>
+
+
+

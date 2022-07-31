@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Koon.Models.Leave.ApplyLeave>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    body {
+        margin-top: 20px;
+        background-color: whitesmoke;
+    }
+</style>
+
+<h1 class="text-center" style="color:#3684a8">
+    View Your Attendance
+</h1>
+
+<body>
+    <div>
+        <table class="table  table-bordered" style="background-color:white;">
+            <thead style="color:#3684a8; background-color:white;">
+                <tr>
+                    <th>
+                        Employee Id
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        From Date
+                    </th>
+                    <th>
+                        To Date
+                    </th>
+                    <th>
+                        Number of Days
+                    </th>
+                    <th>
+                        Leave Type
+                    </th>
+                    <th>
+                        Leave Category
+                    </th>
+                    <th>
+                        Reason For Leave
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var Emp in Model)
+                {
+                    <tr>
+                        <th>
+                            @Emp.EmployeeId
+                        </th>
+
+                    <td>
+                        @Emp.Name
+                    </td>
+                    <td>
+                        @Emp.FromDate
+                    </td>
+                    <td>
+                        @Emp.ToDate
+                    </td>
+                    <td>
+                        @Emp.NumberOfDays
+                    </td>
+                    <td>
+                        @Emp.LeaveType
+                    </td>
+                    <td>
+                        @Emp.LeaveCategory
+                    </td>
+                    <td>
+                        @Emp.ReasonForLeave
+                    </td>
+                    @*<td>
+                        <a asp-action="Delete" asp-route-id="@Emp.LeaveId">Delete</a>
+                    </td>*@
+                    <td>
+                        @*<button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#exampleModalCenter">
+                            Delete
+                        </button>*@
+                        <a asp-action="deleteconfirm" asp-route-id="@Emp.LeaveId" class="btn btn-danger btn-md">Delete</a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Delete Confirmation</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" align="center">
+                                        Are You Sure You want to delete your leave request?.....
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <a asp-action="Delete" asp-route-id="@Emp.LeaveId" class="btn btn-danger btn-md">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>    
+</body>
+
+
+<div class="card mb-3 content">
+    <h1 class="m-3"></h1>
+</div>
+<br />
+
+<div style="float:right">
+    <a asp-controller="Employee" asp-action="Index" class="btn btn-primary">Back to the List</a>
+</div>

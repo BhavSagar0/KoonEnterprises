@@ -1,0 +1,49 @@
+﻿.required:after {
+    content: " *";
+    color: red;
+}
+
+.alert {
+    padding: 20px;
+    background-color: #00b709; /* Green */
+    color: white;
+    margin-bottom: 15px;
+}
+
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    /* When moving the mouse over the close button */
+    .closebtn:hover {
+        color: black;
+    }
+
+#imageTools {
+    display: inline;
+    text-align: center;
+}
+
+.form-padding {
+    padding: 4px;
+}
+
+.label-padding {
+    padding-top: 6px;
+}
+
+.radio-padding {
+    padding-top: 15px;
+}
+
+.img-Padding {
+    padding-bottom: 15px;
+}

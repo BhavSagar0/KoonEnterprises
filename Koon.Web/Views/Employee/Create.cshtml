@@ -1,0 +1,178 @@
+﻿@using System.Reflection;
+@using System.ComponentModel.DataAnnotations;
+@using Koon.Models.Employees
+@using System.Linq;
+@using Koon.Models.HelperClasses
+@model Koon.Models.ViewModels.AddUpdateEmployeeViewModel
+
+<link rel="stylesheet" href="~/css/Create.css" />
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="~/js/Create.js"></script>
+
+<h1 class="text-center" style="color:#3684a8">
+    Employee Portal
+</h1>
+
+<style>
+    body {
+        background-color: whitesmoke;
+    }
+</style>
+@if (Model.isSuccess != null)
+{
+    if ((bool)Model.isSuccess)
+    {
+        <div class="alert">
+            The employee was added successfully!
+            <p>You'll be automatically redirected in <span id="count">5</span> seconds...</p>
+        </div>
+    }
+}
+
+
+
+<form id="CreateUpdateForm" method="post" asp-controller="Employee" asp-action="Create" enctype="multipart/form-data">
+    @if (Model.employee != null)
+    {
+        <input style="display:none;" id="hdnMaritalStatus" value="@Model.employee.MaritalStatus" />
+        if (Model.employee.Image != null)
+        {
+            var base64 = Convert.ToBase64String(Model.employee.Image);
+            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            <input asp-for="imageSrc" style="display:none;" id="hdnImgSrc" value="@imgSrc" />
+        }
+        else
+        {
+            <input asp-for="imageSrc" style="display:none;" id="hdnImgSrc" value="" />
+        }
+        <input style="display:none;" id="hdnCityId" value="@Model.employee.CityId" />
+    }
+    else
+    {
+        <input asp-for="imageSrc" style="display:none;" id="hdnImgSrc" value="" />
+        <input style="display:none;" id="hdnCityId" value="-1" />
+    }
+
+    <div style="display:none;" data-url="@Url.Action("GetCitiesOfStates")" id="GetCitiesOfStates"></div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 form-padding">
+            <div class="col-md-1 col-lg-1"></div>
+            <div id="imageTools" class="col-md-3 col-lg-3 container">
+                <img id="imageHolder" class="img-Padding" style="width:180px; height:200px;" />
+                <input type="button" class="btn btn-primary" style="width:120px; height:30px;" onclick="document.getElementById('getFile').click()" value="Browse Image">
+                <input asp-for="imageFile" type="file" id="getFile" style="display:none">
+                <br />
+                <span id="imageValidation" class="text-danger" asp-validation-for="imageSrc"></span>
+                <span id="imageValidation2" class="text-danger" asp-validation-for="imageFile"></span>
+            </div>
+
+            <div class="col-md-7 col-lg-7">
+                <div class="form-group row">
+                    <label asp-for="employee.FirstName" class="required col-md-2 col-lg-2 col-form-label text-left label-padding"></label>
+                    <div class="col-md-5 col-lg-5">
+                        <input asp-for="employee.FirstName" type="text" class="form-control" />
+                    </div>
+                    <span asp-validation-for="employee.FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="employee.LastName" class="required col-md-2 col-lg-2 col-form-label text-left label-padding"></label>
+                    <div class="col-md-5 col-lg-5">
+                        <input asp-for="employee.LastName" type="text" class="form-control" />
+                    </div>
+                    <span class="text-danger" asp-validation-for="employee.LastName"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="employee.Email" class="required col-md-2 col-lg-2 col-form-label text-left label-padding"></label>
+                    <div class="col-md-5 col-lg-5">
+                        <input asp-for="employee.Email" type="text" class="form-control" />
+                    </div>
+                    <span class="text-danger" asp-validation-for="employee.Email"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="employee.Phone" class="required col-md-2 col-lg-2 col-form-label label-padding"></label>
+                    <div class="col-md-5 col-lg-5">
+                        <input asp-for="employee.Phone" type="text" class="form-control" />
+                    </div>
+                    <span class="text-danger" asp-validation-for="employee.Phone"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="employee.Department" class="required col-md-2 col-lg-2 col-form-label label-padding"></label>
+                    <div class="col-md-5 col-lg-5">
+                        <select id="DepartmentSelector" asp-for="employee.Department" class="form-control" asp-items="@(new SelectList(Model.employeeDepartments, nameof(EmployeeDepartment.DepartmentId),nameof(EmployeeDepartment.DepartmentName)))" > 
+                            <option value="-1" selected>---Select Department---</option>
+                        </select>
+                    </div>
+                    <span class="text-danger" asp-validation-for="employee.Department"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="employee.Gender" class="required col-md-2 col-lg-2 col-form-label label-padding"></label>
+                    <div class="col-md-5 col-lg-5">
+                        <select id="GenderSelector" asp-for="employee.Gender" class="form-control" asp-items="@(new SelectList(Model.employeeGenders))">
+                            <option value="-1" selected>---Select Gender---</option>
+                        </select>
+                    </div>
+                    <span class="text-danger" asp-validation-for="employee.Gender"></span>
+                </div>
+
+                <div class="form-group row" id="radioMaritalStatus">
+                    <label asp-for="employee.MaritalStatus" class="required col-md-2 col-lg-2 col-form-label label-padding"></label>
+                    @foreach (EmployeeMaritalStatus status in Model.maritalStatus)
+                    {
+                        <div class="col-md-1 col-lg-1 radio-padding" style="margin-right:-3rem">
+                            <input id="@string.Concat(status.GetDisplayName(), "Radio")" asp-for="employee.MaritalStatus" type="radio" value="@((int)status)" size="5" />
+                        </div>
+
+                        <div class="col-md-1 col-lg-1 radio-padding" style="margin-right:3rem">
+                            <label style="margin-left:0px;">@status.GetDisplayName()</label>
+                        </div>
+                    }
+                    
+                    <span class="text-danger" asp-validation-for="employee.MaritalStatus"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="employee.StateId" class="required col-md-2 col-lg-2 col-form-label label-padding"></label>
+                    <div class="col-md-5 col-lg-5">
+                        <select id="StateSelector" asp-for="employee.StateId" class="form-control" asp-items="@(new SelectList(Model.employeeStates, nameof(EmployeeState.StateId), nameof(EmployeeState.StateName)))">
+                            <option value="-1" selected>---Select State---</option>
+                        </select>
+                    </div>
+                    <span class="text-danger" asp-validation-for="employee.StateId"></span>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="employee.CityId" class="required col-md-2 col-lg-2 col-form-label label-padding"></label>
+                    <div class="col-md-5 col-lg-5">
+                        <select id="CitySelector" asp-for="employee.CityId" class="form-control">
+                            <option value="-1" selected>---Select City---</option>
+                        </select>
+                    </div>
+                    <span class="text-danger" asp-validation-for="employee.CityId"></span>
+                </div>
+
+                <div class="form-group row" style="padding-left:50px;">
+                    <div class="col-md-3 col-lg-3">
+                        <button id="submitBtn" type="submit" class="btn-success btn" style="width:100px">Submit</button>
+                    </div>
+                    @*<div class="col-md-3 col-lg-3">
+                        <button type="reset" class="btn btn-primary" style="width:100px">Reset</button>
+                    </div>*@
+                </div>
+                <div style="float:right">
+                    <a asp-action="Index" class="btn btn-primary">Back to the List</a>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
+

@@ -1,0 +1,255 @@
+﻿@model Koon.Models.ViewModels.DetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h3 class="text-center" style="color:#3684a8;">
+    Details
+</h3>
+
+
+<style>
+    body {
+        margin-top: 20px;
+        background-color: whitesmoke;
+    }
+
+    .main {
+        padding: 15px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .sidebar {
+        color: black;
+        height: 100%;
+    }
+
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content {
+        background-color: white;
+    }
+
+    h5 {
+        color: #3684a8;
+        font-weight: bold;
+    }
+
+    .col-md-9 {
+        font-weight: normal;
+    }
+</style>
+
+<div class="main">
+    <div class="row">
+        <div class="col-md-4 mt-1">
+            <div class="card text-center sidebar">
+                <div class="card-body">
+                    <img src="@Model.imageSrc" style="border: 3px solid #3684a8; height:200px;width:200px;" />
+                    <div class="mt-3">
+                        <h3 style="font-weight:bold;color:#3684a8;">@Html.DisplayTextFor(model => model.employeeDetails.FirstName) @Html.DisplayTextFor(model => model.employeeDetails.LastName)</h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-8 mt-1">
+            <div class="card mb-3 content" style="padding-left:20px;border: 3px solid #3684a8;">
+                <h1 class="m-3 pt-3"> </h1>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5>First Name</h5>
+
+
+                        </div>
+                        <div class="col-md-9 text-secondary">
+
+                            @*<input type="text" readonly class="form-control-plaintext" style="border: 2px solid #c9de09; padding: 5px; margin: 8px 0;" value="@Html.DisplayTextFor(model=> model.FirstName)">*@
+                            @Html.DisplayTextFor(model => model.employeeDetails.FirstName)
+
+                        </div>
+
+                    </div>
+                    <hr />
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <h5>Last Name</h5>
+                        </div>
+                        <div class="col-md-9 text-secondary">
+
+                            @*<input type="text" readonly class="form-control-plaintext" style="border: 2px solid #c9de09; padding: 5px; margin: 8px 0;" value="@Html.DisplayTextFor(model=> model.FirstName)">*@
+                            @Html.DisplayTextFor(model => model.employeeDetails.LastName)
+
+                        </div>
+
+
+                    </div>
+                    <hr />
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <h5>Employee ID</h5>
+                        </div>
+                        <div class="col-md-9 text-secondary">
+
+                            @*<input type="text" readonly class="form-control-plaintext" style="border: 2px solid #c9de09; padding: 5px; margin: 8px 0;" value="@Html.DisplayTextFor(model=> model.FirstName)">*@
+                            @Html.DisplayTextFor(model => model.employeeDetails.EmployeeId)
+
+                        </div>
+
+
+                    </div>
+                    <hr />
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <h5>Email</h5>
+                        </div>
+                        <div class="col-md-9 text-secondary">
+
+                            @*<input type="text" readonly class="form-control-plaintext" style="border: 2px solid #c9de09; padding: 5px; margin: 8px 0;" value="@Html.DisplayTextFor(model=> model.FirstName)">*@
+                            @Html.DisplayTextFor(model => model.employeeDetails.Email)
+
+                        </div>
+
+
+                    </div>
+                    <hr />
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <h5>Phone</h5>
+                        </div>
+                        <div class="col-md-9 text-secondary">
+
+                            @*<input type="text" readonly class="form-control-plaintext" style="border: 2px solid #c9de09; padding: 5px; margin: 8px 0;" value="@Html.DisplayTextFor(model=> model.FirstName)">*@
+                            @Html.DisplayTextFor(model => model.employeeDetails.Phone)
+
+                        </div>
+
+
+                    </div>
+                    <hr />
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <h5>Gender</h5>
+                        </div>
+                        <div class="col-md-9 text-secondary">
+
+                            @*<input type="text" readonly class="form-control-plaintext" style="border: 2px solid #c9de09; padding: 5px; margin: 8px 0;" value="@Html.DisplayTextFor(model=> model.FirstName)">*@
+                            @Html.DisplayTextFor(model => model.employeeDetails.Gender)
+
+                        </div>
+
+
+                    </div>
+                    <hr />
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <h5>Marital Status</h5>
+                        </div>
+                        <div class="col-md-9 text-secondary">
+
+                            @*<input type="text" readonly class="form-control-plaintext" style="border: 2px solid #c9de09; padding: 5px; margin: 8px 0;" value="@Html.DisplayTextFor(model=> model.FirstName)">*@
+                            @Html.DisplayTextFor(model => model.employeeDetails.MaritalStatus)
+
+                        </div>
+
+
+                    </div>
+                    <hr />
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <h5>State</h5>
+                        </div>
+                        <div class="col-md-9 text-secondary">
+
+                            @*<input type="text" readonly class="form-control-plaintext" style="border: 2px solid #c9de09; padding: 5px; margin: 8px 0;" value="@Html.DisplayTextFor(model=> model.FirstName)">*@
+                            @Html.DisplayTextFor(model => model.StateName)
+
+                        </div>
+
+
+                    </div>
+                    <hr />
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <h5>City</h5>
+                        </div>
+                        <div class="col-md-9 text-secondary">
+
+                            @*<input type="text" readonly class="form-control-plaintext" style="border: 2px solid #c9de09; padding: 5px; margin: 8px 0;" value="@Html.DisplayTextFor(model=> model.FirstName)">*@
+                            @Html.DisplayTextFor(model => model.CityName)
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="card mb-3 content">
+                <h1 class="m-3"></h1>
+            </div>
+            <br />
+
+
+
+            <div style="float:right">
+                <a asp-action="Index" class="btn btn-primary">Back to the List</a>
+                <a asp-action="Update" asp-route-id="@Model.employeeDetails.EmployeeId" class="btn btn-primary">Edit</a>
+                <a asp-controller="Leaves" asp-action="Apply" asp-route-id="@Model.employeeDetails.EmployeeId" asp-route-fname="@Model.employeeDetails.FirstName" asp-route-lname="@Model.employeeDetails.LastName" asp-route-mail="@Model.employeeDetails.Email" class="btn btn-warning">Apply Leave</a>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                    Delete
+                </button>
+
+            </div>
+
+
+
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                            @Html.ActionLink("Delete", "Delete", new { id = Model.employeeDetails.EmployeeId }, new { @class = "btn btn-danger" })
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+    </div>
+</div>

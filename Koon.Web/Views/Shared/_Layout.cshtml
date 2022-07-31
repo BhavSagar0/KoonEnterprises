@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Koon Enterprises</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+    
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top" style="background-color:white; ">
+
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" asp-controller="Employee" asp-action="Index">
+                    <img src="https://synergy.trantorinc.com/image/company_logo?img_id=153909&t=1653314107104" alt="" height="25">
+                </a>
+                <a asp-area="" asp-controller="Employee" asp-action="Index" class="navbar-brand" style="color:#3684a8; font-weight:bold;">Koon Enterprise</a>
+            </div>
+
+            
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav" style="float:right;">
+                    <li><a asp-area="" asp-controller="Employee" style="background-color:white; color:#3684a8;" onMouseOut="this.style.color = '#3684a8'; this.style.backgroundColor = 'white';" onMouseOver="this.style.color = 'white'; this.style.backgroundColor = '#3684a8';" asp-action="Index"><b>Home</b></a></li>
+                    <li><a href="#" style="color:#3684a8" onMouseOut="this.style.color = '#3684a8'; this.style.backgroundColor = 'white';" onMouseOver="this.style.color = 'white'; this.style.backgroundColor = '#3684a8';"><b>About</b></a></li>
+                    <li><a href="https://www.trantorinc.com/contact-us/" onMouseOut="this.style.color = '#3684a8'; this.style.backgroundColor = 'white';" onMouseOver="this.style.color = 'white'; this.style.backgroundColor = '#3684a8';" @*asp-area="" asp-controller="" *@ style="color:#3684a8" @*asp-action="" *@><b>Contact</b></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <partial name="_CookieConsentPartial" />
+
+    <div class="container body-content">
+
+        <!--Success Dailog Start-->
+        @*<div id="myModalSuccess" class="modal fade text-width:30%; role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Information</h2>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div id="MyModalSuccessAlertBody" class="modal-body alert alert-success">
+                        The Message Body
+                    </div>
+                    <div class="modal-footer">
+                        &nbsp;
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+        <!--Success Dailog End-->
+        <!--Loader-->
+        <div class="loader_bg">
+            <div class="loader"></div>
+        </div>
+
+
+        <style>
+            .loader_bg {
+                position: fixed;
+                z-index: 999999;
+                background-color: whitesmoke;
+                width: 100%;
+                height: 100%;
+            }
+
+            .loader {
+                border: 0 solid transparent;
+                border-radius: 50%;
+                width: 150px;
+                height: 150px;
+                position: absolute;
+                top: calc(50vh - 200px);
+                left: calc(50vw - 250px);
+            }
+
+                .loader:before, .loader:after {
+                    content: '';
+                    border: 1em solid #3684a8;
+                    border-radius: 50%;
+                    width: inherit;
+                    height: inherit;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    animation: loader 2s linear infinite;
+                    opacity: 0;
+                }
+
+                .loader:before {
+                    animation-delay: .5s;
+                }
+
+            @@-webkit-keyframes loader {
+                0% {
+                    transform: scale(0);
+                    opacity: 0;
+                }
+
+                50% {
+                    opacity: 1;
+                }
+
+                100% {
+                    transform: scale(1);
+                    opacity: 0;
+                }
+            }
+
+            @@media only screen and (max-width : 960px) {
+                .loader {
+                    border: 0 solid transparent;
+                    border-radius: 50%;
+                    width: 150px;
+                    height: 150px;
+                    position: absolute;
+                    top: calc(50vh - 110px);
+                    left: calc(50vw - 110px);
+                }
+
+            }
+        </style>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script>
+            setTimeout(function () {
+                $('.loader_bg').fadeToggle();
+            }, 0);
+
+
+
+
+        </script>
+
+
+        <!--loader ending-->
+
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2022 - Koon.Web</p>
+        </footer>
+    </div>
+
+    
+
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
